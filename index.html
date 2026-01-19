@@ -22,30 +22,32 @@
     </div>
     <form>
         <div class="form-section">
-        <label for="name">Siapa nama anda?<label><br>
+        <label for="name">Siapa nama anda?<span class="required">*</span><label><br>
         <input type="text" id="name" name="name"><br>
         </div>
 
         <div class="form-section">
-        <label for="email">Berapa umur anda?</label><br>
+        <label for="email">Berapa umur anda?<span class="required">*</span></label><br>
         <input type="text" id="age" name="age"><br>
         </div>
 
         <div class="form-section">
-        <label for="gender">Apa jenis kelamin anda?</label><br>
+        <label for="gender">Apa jenis kelamin anda?<span class="required">*</span></label><br>
         <input type="radio" id="male" name="gender" value="laki-laki">laki-laki</input>
         <input type="radio" id="female" name="gender" value="perempuan">perempuan</input>
         </div>
         <div class="form-section"> 
-        <label for="smoke">Apakah anda perokok?</label> <br>
+        <label for="smoke">Apakah anda perokok?<span class="required">*</span></label> <br>
         <input type="radio" id="smoke" name="smoke" value="Ya">Ya</input><input type="radio" id="smoke" name="smoke" value="Tidak">tidak</input>
         </div>
         <div class="form-section" >
          <label for="cigarette"> Jika anda perokok, rokok apa yang anda pernah coba?</label>
+         <div class="cekbox"> 
         <input type="checkbox" id="cigarette1" name="cigarette" value="Gudang Garam Filter">Gudang Garam Filter </input><br>         
         <input type="checkbox" id="cigarette2" name="cigarette" value="Lucky Strike">Lucky Strike </input><br>
         <input type="checkbox" id="cigarette3" name ="cigarette" value="Marlboro">Marlboro </input><br>
         <input type="checkbox" id="cigarette4" name="cigarette" value="Esse">Esse </input><br>
+    </div>
     </div> 
     <div class="form-actions">
             <button type="submit">Kirim</button>
