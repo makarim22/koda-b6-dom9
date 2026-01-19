@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contoh Kotak Inputan Kosong</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="main-container">
+    <div class="title">
+        <h1>Form Survey Perokok</h1>
+        <p>Silakan isi form di bawah ini. Data tidak akan dipublikasikan dan dijamin kerahasiaannya</p>
+    </div>
+    <form>
+        <div class="form-section">
+        <label for="name">Siapa nama anda?<label><br>
+        <input type="text" id="name" name="name"><br>
+        </div>
+
+        <div class="form-section">
+        <label for="email">Berapa umur anda?</label><br>
+        <input type="text" id="age" name="age"><br>
+        </div>
+
+        <div class="form-section">
+        <label for="gender">Apa jenis kelamin anda?</label><br>
+        <input type="radio" id="male" name="gender" value="laki-laki">laki-laki</input>
+        <input type="radio" id="female" name="gender" value="perempuan">perempuan</input>
+        </div>
+        <div class="form-section"> 
+        <label for="smoke">Apakah anda perokok?</label> <br>
+        <input type="radio" id="smoke" name="smoke" value="Ya">Ya</input><input type="radio" id="smoke" name="smoke" value="Tidak">tidak</input>
+        </div>
+        <div class="form-section" >
+         <label for="cigarette"> Jika anda perokok, rokok apa yang anda pernah coba?</label>
+        <input type="checkbox" id="cigarette1" name="cigarette" value="Gudang Garam Filter">Gudang Garam Filter </input><br>         
+        <input type="checkbox" id="cigarette2" name="cigarette" value="Lucky Strike">Lucky Strike </input><br>
+        <input type="checkbox" id="cigarette3" name ="cigarette" value="Marlboro">Marlboro </input><br>
+        <input type="checkbox" id="cigarette4" name="cigarette" value="Esse">Esse </input><br>
+    </div> 
+    <div class="form-actions">
+            <button type="submit">Kirim</button>
+        </div>   
+    </div>  
+        
+        <!-- <p>lihat hasil survey <a href="table.html">disini</a></p> -->
+    </form>
+    </div>
+
+<script>
+    const form = document.querySelector("form");
+    const nameInput = document.getElementById("name");
+    const ageInput = document.getElementById("age");
+    const cigaretteCheckboxes = document.querySelectorAll('input[name="cigarette"]');
+    const STORAGE_KEY = "data";
+
+    let data = [];
+
+    data = JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
+
+    form.addEventListener("submit", function(e) {
+        e.preventDefault();
+
+        const name = nameInput.value;
+        const age = ageInput.value;
+        const gender = document.querySelector('input[name="gender"]:checked').value;
+        const smoke = document.querySelector('input[name="smoke"]:checked').value;
+        
+        const cigarette = [...cigaretteCheckboxes]
+            .filter(cb => cb.checked)
+            .map(cb => cb.value);
+
+            if (!name || !age || !gender || !smoke) {
+            alert("Mohon isi semua field!");
+            return;
+        }
+
+        const newData = { name, age, gender, smoke, cigarette };
+        data.push(newData);
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+
+        console.log('Data tersimpan:', data);
+        alert("Data survei berhasil disimpan!");
+        window.location.href = "submission.html";
+        form.reset();
+    });
+</script>
+
+</body>
+</html>

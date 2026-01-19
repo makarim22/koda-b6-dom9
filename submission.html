@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Survey Result</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f4f4f4;
+        }
+        .main {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            max-width: 1000px;
+            margin: auto;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+        }
+        th {
+            background-color: #4CAF50;
+            color: white;
+        }
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        .no-data {
+            text-align: center;
+            color: #999;
+            padding: 20px;
+        }
+        a {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            text-decoration: none;
+            border-radius: 4px;
+        }
+        a:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="main">
+        <h1>Hasil Survey</h1>
+        <div id="tableContainer"></div>
+        <a href="index.html">Kembali ke Formulir</a>
+    </div>
+
+    <script>
+        const STORAGE_KEY = "data";
+        let data = JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
+        console.log('Data dari localStorage:', data);
+
+        const tableContainer = document.getElementById("tableContainer");
+
+        if (data.length === 0) {
+            tableContainer.innerHTML = '<p class="no-data">Belum ada data survey.</p>';
+        } else {
+            const table = document.createElement("table");
+            const thead = document.createElement("thead");
+            const headerRow = document.createElement("tr");
+
+            const headers = ["No.", "Nama", "Umur", "Jenis Kelamin", "Perokok", "Jenis Rokok"];
+            headers.forEach(headerText => {
+                const th = document.createElement("th");
+                th.textContent = headerText;
+                headerRow.appendChild(th);
+            });
+
+            thead.appendChild(headerRow);
+            table.appendChild(thead);
+
+            const tbody = document.createElement("tbody");
+
+            data.forEach((element, index) => {
+                const tr = document.createElement("tr");
+
+                const tdNo = document.createElement("td");
+                tdNo.textContent = index + 1;
+                tr.appendChild(tdNo);
+
+                const tdName = document.createElement("td");
+                tdName.textContent = element.name;
+                tr.appendChild(tdName);
+
+                const tdAge = document.createElement("td");
+                tdAge.textContent = element.age;
+                tr.appendChild(tdAge);
+
+                const tdGender = document.createElement("td");
+                tdGender.textContent = element.gender;
+                tr.appendChild(tdGender);
+
+                const tdSmoke = document.createElement("td");
+                tdSmoke.textContent = element.smoke;
+                tr.appendChild(tdSmoke);
+
+                const tdCigarette = document.createElement("td");
+                if (element.smoke === "Ya" && element.cigarette && element.cigarette.length > 0) {
+                    tdCigarette.textContent = element.cigarette.join(", ");
+                } else if (element.smoke === "Ya") {
+                    tdCigarette.textContent = "-";
+                } else {
+                    tdCigarette.textContent = "-";
+                }
+                tr.appendChild(tdCigarette);
+
+                tbody.appendChild(tr);
+            });
+
+            table.appendChild(tbody);
+            tableContainer.appendChild(table);
+        }
+    </script>
+
+</body>
+</html>
